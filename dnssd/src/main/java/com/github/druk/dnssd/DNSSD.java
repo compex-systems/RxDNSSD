@@ -563,10 +563,10 @@ public abstract class DNSSD implements InternalDNSSDService.DnssdServiceListener
                     }
                     multicastLock = wifi.createMulticastLock(MULTICAST_LOCK_NAME);
                     multicastLock.setReferenceCounted(true);
+                    multicastLock.acquire();
                 }
             }
         }
-        multicastLock.acquire();
     }
 
     @Override
@@ -576,6 +576,7 @@ public abstract class DNSSD implements InternalDNSSDService.DnssdServiceListener
             return;
         }
         multicastLock.release();
+        multicastLock = null;
     }
 
     /** Return the index of a named interface.<P>
